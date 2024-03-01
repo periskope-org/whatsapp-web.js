@@ -50,8 +50,14 @@ declare namespace WAWebJS {
         /** Get chat instance by ID */
         getChatById(chatId: string): Promise<Chat>
 
+        /** Get base chat instance by ID */
+        getChatBaseById(chatId: string): Promise<Chat>
+
         /** Get all current chat instances */
         getChats(): Promise<Chat[]>
+
+        /** Get all current chat base instances */
+        getChatsBase(): Promise<Chat[]>
 
         /** Get contact instance by ID */
         getContactById(contactId: string): Promise<Contact>

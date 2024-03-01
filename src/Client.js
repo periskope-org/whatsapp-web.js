@@ -974,6 +974,18 @@ class Client extends EventEmitter {
     }
 
     /**
+     * Get all current chat instances
+     * @returns {Promise<Array<Chat>>}
+     */
+    async getChatsBase() {
+        let chats = await this.pupPage.evaluate(async () => {
+            return await window.WWebJS.getChatsBase();
+        });
+    
+        return chats.map(chat => ChatFactory.create(this, chat));
+    }
+
+    /**
      * Get chat instance by ID
      * @param {string} chatId 
      * @returns {Promise<Chat>}
@@ -985,6 +997,20 @@ class Client extends EventEmitter {
 
         return ChatFactory.create(this, chat);
     }
+
+        /**
+     * Get chat instance by ID
+     * @param {string} chatId 
+     * @returns {Promise<Chat>}
+     */
+    async getChatBaseById(chatId) {
+        let chat = await this.pupPage.evaluate(async chatId => {
+            return await window.WWebJS.getChatBase(chatId);
+        }, chatId);
+    
+        return ChatFactory.create(this, chat);
+    }
+
 
     /**
      * Get all current contact instances
