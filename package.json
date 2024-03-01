@@ -1,5 +1,5 @@
 {
-  "name": "whatsapp-web.js",
+  "name": "@periskope/whatsapp-web.js",
   "version": "1.23.1-alpha.5",
   "description": "Library for interacting with the WhatsApp Web API ",
   "main": "./index.js",
@@ -30,6 +30,7 @@
   "homepage": "https://wwebjs.dev/",
   "dependencies": {
     "@pedroslopez/moduleraid": "^5.0.2",
+    "adm-zip": "^0.5.10",
     "fluent-ffmpeg": "2.1.2",
     "mime": "^3.0.0",
     "node-fetch": "^2.6.5",
