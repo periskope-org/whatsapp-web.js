@@ -138,6 +138,16 @@ class RemoteAuth extends BaseAuthStrategy {
         if (sessionExists) await this.store.delete({session: this.sessionName});
     }
 
+    async deleteLocalSession() {
+        let pathExists = await this.isValidPath(this.userDataDir);
+        if (pathExists) {
+            await fs.promises.rm(this.userDataDir, {
+                recursive: true,
+                force: true
+            }).catch(() => {});
+        }
+    }
+
     async compressSession() {
         const archive = archiver('zip');
         const stream = fs.createWriteStream(`${this.sessionName}.zip`);

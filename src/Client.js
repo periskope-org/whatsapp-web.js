@@ -779,6 +779,7 @@ class Client extends EventEmitter {
      */
     async destroy() {
         await this.pupBrowser.close();
+        await this.authStrategy.deleteLocalSession();
         await this.authStrategy.destroy();
     }
 
