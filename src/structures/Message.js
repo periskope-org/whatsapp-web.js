@@ -195,7 +195,7 @@ class Message extends Base {
 
         /**
          * Indicates the mentions in the message body.
-         * @type {Mention[]}
+         * @type {Mention['_serialized'][]}
          */
         this.mentionedIds = data.mentionedJidList || [];
 
