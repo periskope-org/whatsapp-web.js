@@ -1224,7 +1224,7 @@ class Client extends EventEmitter {
         const profilePic &#x3D; await this.pupPage.evaluate(async contactId &#x3D;&gt; {
             try {
                 const chatWid &#x3D; window.Store.WidFactory.createWid(contactId);
-                return await window.Store.ProfilePic.profilePicFind(chatWid);
+                return await window.Store.ProfilePic.requestProfilePicFromServer(chatWid);
             } catch (err) {
                 if(err.name &#x3D;&#x3D;&#x3D; &#x27;ServerStatusCodeError&#x27;) return undefined;
                 throw err;
