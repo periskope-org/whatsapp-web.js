@@ -17,6 +17,7 @@ class BaseAuthStrategy {
             failureEventPayload: undefined
         };
     }
+    async deleteLocalSession() {}
     async getAuthEventPayload() {}
     async afterAuthReady() {}
     async disconnect() {}
