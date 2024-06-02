@@ -240,9 +240,12 @@ class Client extends EventEmitter {
                 this.emit(Events.READY);
                 this.authStrategy.afterAuthReady();
             });
-
+            let lastPercent = null;
             await this.pupPage.exposeFunction('onOfflineProgressUpdateEvent', async (percent) => {
-                this.emit(Events.LOADING_SCREEN, percent, 'WhatsApp'); // Message is hardcoded as "WhatsApp" for now
+                if (lastPercent !== percent) {
+                    lastPercent = percent;
+                    this.emit(Events.LOADING_SCREEN, percent, 'WhatsApp'); // Message is hardcoded as "WhatsApp" for now
+                }
             });
         }
         const logoutCatchInjected = await this.pupPage.evaluate(() => {
@@ -829,6 +832,7 @@ class Client extends EventEmitter {
      * @property {GroupMention[]} [groupMentions] - An array of object that handle group mentions
      * @property {string[]} [mentions] - User IDs to mention in the message
      * @property {boolean} [sendSeen=true] - Mark the conversation as seen after sending the message
+     * @property {string} [invokedBotWid=undefined] - Bot Wid when doing a bot mention like @Meta AI
      * @property {string} [stickerAuthor=undefined] - Sets the author of the sticker, (if sendMediaAsSticker is true).
      * @property {string} [stickerName=undefined] - Sets the name of the sticker, (if sendMediaAsSticker is true).
      * @property {string[]} [stickerCategories=undefined] - Sets the categories of the sticker, (if sendMediaAsSticker is true). Provide emoji char array, can be null.
@@ -865,6 +869,7 @@ class Client extends EventEmitter {
             parseVCards: options.parseVCards === false ? false : true,
             mentionedJidList: options.mentions || [],
             groupMentions: options.groupMentions,
+            invokedBotWid: options.invokedBotWid,
             extraOptions: options.extra
         };
 
@@ -1238,7 +1243,9 @@ class Client extends EventEmitter {
         const profilePic = await this.pupPage.evaluate(async contactId => {
             try {
                 const chatWid = window.Store.WidFactory.createWid(contactId);
-                return await window.Store.ProfilePic.requestProfilePicFromServer(chatWid);
+                return window.WWebJS.compareWwebVersions(window.Debug.VERSION, '<', '2.3000.0')
+                    ? await window.Store.ProfilePic.profilePicFind(chatWid)
+                    : await window.Store.ProfilePic.requestProfilePicFromServer(chatWid);
             } catch (err) {
                 if(err.name === 'ServerStatusCodeError') return undefined;
                 throw err;
