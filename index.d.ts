@@ -604,7 +604,27 @@ declare namespace WAWebJS {
          * The comment to be added to an inviteV4 (empty string by default)
          * @default ''
          */
-        comment?: string
+        comment?: string,
+        /** If true, then members can add participants to group. If false then only admins can add members
+         * @default true
+         *
+         */
+        memberAddMode?: boolean,
+        /** If true, only admins can send messages to the group
+         * @default true
+         *
+         */
+        announce?: boolean,
+         /** If true, only admins can change info settings e.g. subject and description
+         * @default true
+         *
+         */
+        restrict?: boolean,
+         /** If true, members can request addition of members, which will go to approval to admins
+         * @default false
+         *
+         */
+        membershipApprovalMode?: boolean
     }
 
     /** An object that handles the result for createGroup method */
