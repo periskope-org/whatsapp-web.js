@@ -1428,8 +1428,18 @@ class Client extends EventEmitter {
 
             try {
                 createGroupResult = await window.Store.GroupUtils.createGroup(
-                    {title, parentGroupId, messageTimer},
-                    participantWids,
+                    {
+                        'memberAddMode': options.memberAddMode === undefined ? false : options.memberAddMode,
+                        'membershipApprovalMode': options.membershipApprovalMode === undefined ? true : options.membershipApprovalMode,
+                        'announce': options.announce === undefined ? false : options.announce,
+                        'ephemeralDuration': messageTimer,
+                        'full': undefined,
+                        'parentGroupId': parentGroupWid,
+                        'restrict': options.restrict === undefined ? true : options.restrict,
+                        'thumb': undefined,
+                        'title': title,
+                    },
+                    participantWids
                 );
             } catch (err) {
                 return 'CreateGroupError: An unknown error occupied while creating a group';
