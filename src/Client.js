@@ -942,10 +942,12 @@ class Client extends EventEmitter {
             }
 
             const msg = await window.WWebJS.sendMessage(chat, message, options, sendSeen);
-            return window.WWebJS.getMessageModel(msg);
+            // return window.WWebJS.getMessageModel(msg);
+            return msg;
         }, chatId, content, internalOptions, sendSeen);
 
-        return new Message(this, newMessage);
+        // return new Message(this, newMessage);
+        return msg;
     }
     
     /**
