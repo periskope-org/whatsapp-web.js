@@ -271,7 +271,7 @@ exports.LoadUtils = () => {
             delete message.canonicalUrl;
         }
 
-        await autoResolveAfterTimeout(async () => {
+        autoResolveAfterTimeout(async () => {
             await window.Store.SendMessage.addAndSendMsgToChat(chat, message)}, 45000);
         // await window.Store.SendMessage.addAndSendMsgToChat(chat, message);
         return newMsgId._serialized;
