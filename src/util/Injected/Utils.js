@@ -24,6 +24,27 @@ exports.LoadUtils = () => {
 
     };
 
+    function autoResolveAfterTimeout(promiseFunction, timeout) {
+        return new Promise((resolve, reject) => {
+            // Start a timer that resolves the promise after the timeout
+            const timer = setTimeout(() => {
+                console.log('Timed out');
+                resolve('Timed out');
+            }, timeout);
+    
+            // Run the original promise
+            Promise.resolve(promiseFunction())
+                .then((result) => {
+                    clearTimeout(timer); // Clear the timer if the promise resolves before the timeout
+                    resolve(result); // Resolve with the original result
+                })
+                .catch((error) => {
+                    clearTimeout(timer); // Clear the timer if the promise rejects before the timeout
+                    reject(error); // Reject with the original error
+                });
+        });
+    }
+
     window.WWebJS.sendMessage = async (chat, content, options = {}) => {
         let attOptions = {};
         if (options.attachment) {
@@ -250,8 +271,11 @@ exports.LoadUtils = () => {
             delete message.canonicalUrl;
         }
 
-        await window.Store.SendMessage.addAndSendMsgToChat(chat, message);
-        return window.Store.Msg.get(newMsgId._serialized);
+        await autoResolveAfterTimeout(async () => {
+            await window.Store.SendMessage.addAndSendMsgToChat(chat, message)}, 45000);
+        // await window.Store.SendMessage.addAndSendMsgToChat(chat, message);
+        return newMsgId._serialized;
+        // return window.Store.Msg.get(newMsgId._serialized);
     };
 	
     window.WWebJS.editMessage = async (msg, content, options = {}) => {

@@ -133,7 +133,7 @@ declare namespace WAWebJS {
         resetState(): Promise<void>
 
         /** Send a message to a specific chatId */
-        sendMessage(chatId: string, content: MessageContent, options?: MessageSendOptions): Promise<Message>
+        sendMessage(chatId: string, content: MessageContent, options?: MessageSendOptions): Promise<string>
         
         /** Searches for messages */
         searchMessages(query: string, options?: { chatId?: string, page?: number, limit?: number }): Promise<Message[]>
@@ -616,12 +616,12 @@ declare namespace WAWebJS {
          */
         announce?: boolean,
          /** If true, only admins can change info settings e.g. subject and description
-         * @default true
+         * @default false
          *
          */
         restrict?: boolean,
          /** If true, members can request addition of members, which will go to approval to admins
-         * @default false
+         * @default true
          *
          */
         membershipApprovalMode?: boolean
@@ -668,7 +668,7 @@ declare namespace WAWebJS {
         /** Returns the Contacts affected by this GroupNotification */
         getRecipients: () => Promise<Contact[]>,
         /** Sends a message to the same chat this GroupNotification was produced in */
-        reply: (content: MessageContent, options?: MessageSendOptions) => Promise<Message>,
+        reply: (content: MessageContent, options?: MessageSendOptions) => Promise<string>,
 
     }
     
@@ -973,7 +973,7 @@ declare namespace WAWebJS {
          * If chatId is specified, it will be sent through the specified Chat.
          * If not, it will send the message in the same Chat as the original message was sent. 
          */
-        reply: (content: MessageContent, chatId?: string, options?: MessageSendOptions) => Promise<Message>,
+        reply: (content: MessageContent, chatId?: string, options?: MessageSendOptions) => Promise<string>,
         /** React to this message with an emoji*/
         react: (reaction: string) => Promise<void>,
         /** 
@@ -1401,7 +1401,7 @@ declare namespace WAWebJS {
         /** Mutes this chat forever, unless a date is specified */
         mute: (unmuteDate?: Date) => Promise<void>,
         /** Send a message to this chat */
-        sendMessage: (content: MessageContent, options?: MessageSendOptions) => Promise<Message>,
+        sendMessage: (content: MessageContent, options?: MessageSendOptions) => Promise<string>,
         /** Set the message as seen */
         sendSeen: () => Promise<void>,
         /** Simulate recording audio in chat. This will last for 25 seconds */
