@@ -947,7 +947,7 @@ class Client extends EventEmitter {
         }, chatId, content, internalOptions, sendSeen);
 
         // return new Message(this, newMessage);
-        return msg;
+        return newMessage;
     }
     
     /**
