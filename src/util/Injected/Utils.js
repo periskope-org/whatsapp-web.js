@@ -226,7 +226,7 @@ exports.LoadUtils = () => {
         }
 
         const meUser = window.Store.User.getMaybeMeUser();
-        const newId = await window.Store.MsgKey.newId();
+        const newId = options.new_msg_id || await window.Store.MsgKey.newId();
         
         const newMsgId = new window.Store.MsgKey({
             from: meUser,
@@ -271,8 +271,13 @@ exports.LoadUtils = () => {
             delete message.canonicalUrl;
         }
 
-        autoResolveAfterTimeout(async () => {
-            await window.Store.SendMessage.addAndSendMsgToChat(chat, message)}, 45000);
+        await autoResolveAfterTimeout(async () => {
+            try {
+                await window.Store.SendMessage.addAndSendMsgToChat(chat, message);
+            } catch (error) {
+                console.error('Failed to send message:', error);
+            }
+        }, 45000);        
         // await window.Store.SendMessage.addAndSendMsgToChat(chat, message);
         return newMsgId._serialized;
         // return window.Store.Msg.get(newMsgId._serialized);

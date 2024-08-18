@@ -132,6 +132,9 @@ declare namespace WAWebJS {
         /** Force reset of connection state for the client */
         resetState(): Promise<void>
 
+        /** Generate New Message Id */
+        generateMessageId(): Promise<string>
+
         /** Send a message to a specific chatId */
         sendMessage(chatId: string, content: MessageContent, options?: MessageSendOptions): Promise<string>
         
@@ -1110,7 +1113,9 @@ declare namespace WAWebJS {
         /** Sticker author, if sendMediaAsSticker is true */
         stickerAuthor?: string
         /** Sticker categories, if sendMediaAsSticker is true */
-        stickerCategories?: string[]
+        stickerCategories?: string[],
+        /** New message id */
+        new_msg_id?: string
     }
 
     /** Options for editing a message */

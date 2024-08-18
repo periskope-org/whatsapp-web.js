@@ -855,6 +855,13 @@ class Client extends EventEmitter {
      * @property {string[]} [stickerCategories=undefined] - Sets the categories of the sticker, (if sendMediaAsSticker is true). Provide emoji char array, can be null.
      * @property {MessageMedia} [media] - Media to be sent
      */
+
+    async generateMessageId() {
+        return await this.pupPage.evaluate(async () => {
+            const _msgId = await window.Store.MsgKey.newId();
+            return _msgId;
+        });
+    }
     
     /**
      * Send a message to a specific chatId
@@ -887,7 +894,8 @@ class Client extends EventEmitter {
             mentionedJidList: options.mentions || [],
             groupMentions: options.groupMentions,
             invokedBotWid: options.invokedBotWid,
-            extraOptions: options.extra
+            extraOptions: options.extra,
+            new_msg_id: options.new_msg_id ?? undefined
         };
 
         const sendSeen = typeof options.sendSeen === 'undefined' ? true : options.sendSeen;
