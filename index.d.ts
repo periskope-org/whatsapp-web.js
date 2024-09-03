@@ -628,6 +628,11 @@ declare namespace WAWebJS {
          *
          */
         membershipApprovalMode?: boolean
+        /** Default picture for the group
+         * @default null
+         *
+         */
+        thumb?:string
     }
 
     /** An object that handles the result for createGroup method */
@@ -1407,6 +1412,8 @@ declare namespace WAWebJS {
         mute: (unmuteDate?: Date) => Promise<void>,
         /** Send a message to this chat */
         sendMessage: (content: MessageContent, options?: MessageSendOptions) => Promise<string>,
+        /** Send a message to this chat */
+        getLinkPreview: (body: string) => Promise<Record<string, any>>,
         /** Set the message as seen */
         sendSeen: () => Promise<void>,
         /** Simulate recording audio in chat. This will last for 25 seconds */

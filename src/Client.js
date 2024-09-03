@@ -1417,7 +1417,7 @@ class Client extends EventEmitter {
         participants.map(p => (p instanceof Contact) ? p.id._serialized : p);
 
         return await this.pupPage.evaluate(async (title, participants, options) => {
-            const { messageTimer = 0, parentGroupId, autoSendInviteV4 = true, comment = '' } = options;
+            const { messageTimer = 0, parentGroupId, autoSendInviteV4 = true, comment = '', thumb } = options;
             const participantData = {}, participantWids = [], failedParticipants = [];
             let createGroupResult, parentGroupWid;
 
@@ -1446,7 +1446,7 @@ class Client extends EventEmitter {
                         'full': undefined,
                         'parentGroupId': parentGroupWid,
                         'restrict': options.restrict === undefined ? true : options.restrict,
-                        'thumb': undefined,
+                        'thumb': thumb ?? undefined,
                         'title': title,
                     },
                     participantWids
@@ -1579,6 +1579,16 @@ class Client extends EventEmitter {
         }, this.info.wid._serialized, media);
 
         return success;
+    }
+
+    async getLinkPreview(content) {
+        const res = await this.pupPage.evaluate(async (content) => {
+            const link = window.Store.Validators.findLink(content);
+            return await window.Store.LinkPreview.getLinkPreview(link);
+            
+        }, content);
+
+        return res;
     }
 
     /**
