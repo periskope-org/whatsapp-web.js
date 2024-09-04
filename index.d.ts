@@ -627,7 +627,7 @@ declare namespace WAWebJS {
          */
         restrict?: boolean,
          /** If true, members can request addition of members, which will go to approval to admins
-         * @default true
+         * @default false
          *
          */
         membershipApprovalMode?: boolean

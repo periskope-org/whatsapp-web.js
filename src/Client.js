@@ -1439,13 +1439,13 @@ class Client extends EventEmitter {
             try {
                 createGroupResult = await window.Store.GroupUtils.createGroup(
                     {
-                        'memberAddMode': options.memberAddMode === undefined ? false : options.memberAddMode,
-                        'membershipApprovalMode': options.membershipApprovalMode === undefined ? true : options.membershipApprovalMode,
-                        'announce': options.announce === undefined ? false : options.announce,
+                        'memberAddMode': options.memberAddMode === undefined ? true : options.memberAddMode,
+                        'membershipApprovalMode': options.membershipApprovalMode === undefined ? false : options.membershipApprovalMode,
+                        'announce': options.announce === undefined ? true : options.announce,
                         'ephemeralDuration': messageTimer,
                         'full': undefined,
                         'parentGroupId': parentGroupWid,
-                        'restrict': options.restrict === undefined ? true : options.restrict,
+                        'restrict': options.restrict === undefined ? false : options.restrict,
                         'thumb': thumb ?? undefined,
                         'title': title,
                     },
