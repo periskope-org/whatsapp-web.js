@@ -73,7 +73,7 @@ class MessageMedia {
 
         async function fetchData (url, options) {
             const reqOptions = Object.assign({ headers: { accept: 'image/* video/* text/* audio/*' } }, options);
-            const response = await fetch(url, reqOptions);
+            const response = await fetch(url);
             const mime = response.headers.get('Content-Type');
             const size = response.headers.get('Content-Length');
 

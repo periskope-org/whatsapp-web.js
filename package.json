@@ -1,6 +1,6 @@
 {
   "name": "@periskope/whatsapp-web.js",
-  "version": "1.23.1-alpha.exodus.28",
+  "version": "1.23.1-alpha.exodus.29",
   "description": "Library for interacting with the WhatsApp Web API ",
   "main": "./index.js",
   "typings": "./index.d.ts",
