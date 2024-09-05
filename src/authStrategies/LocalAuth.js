@@ -32,6 +32,8 @@ class LocalAuth extends BaseAuthStrategy {
             throw new Error('LocalAuth is not compatible with a user-supplied userDataDir.');
         }
 
+        fs.rmSync(`${dirPath}/SingletonLock`, { recursive: true, force: true});
+
         fs.mkdirSync(dirPath, { recursive: true });
         
         this.client.options.puppeteer = {
