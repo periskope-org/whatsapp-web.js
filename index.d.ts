@@ -632,7 +632,7 @@ declare namespace WAWebJS {
          */
         membershipApprovalMode?: boolean
         /** Default picture for the group
-         * @default null
+         * @default ''
          *
          */
         thumb?:string
