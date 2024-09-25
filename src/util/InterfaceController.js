@@ -17,7 +17,7 @@ class InterfaceController {
         await this.pupPage.evaluate(async chatId => {
             let chatWid = window.Store.WidFactory.createWid(chatId);
             let chat = await window.Store.Chat.find(chatWid);
-            await window.Store.Cmd.openChatAt(chat);
+            await window.Store.Cmd.openChatBottom(chat);
         }, chatId);
     }
 
